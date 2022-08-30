@@ -1,0 +1,12 @@
+{
+  "name": "vue-typewriter-compostable",
+  "version": "0.0.1",
+  "description": "A vue 3 compostable for creating typewriter text",
+  "main": "index.ts",
+  "author": "James Manning",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "vue": "^3.2.38"
+  }
+}
