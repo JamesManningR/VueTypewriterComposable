@@ -24,6 +24,7 @@ const {
   typeInterval,
   deleteInterval,
   holdFor,
+  holdEmptyFor,
   loop,
   iterations,
   isPaused,
@@ -61,6 +62,10 @@ const {
       <input type="number" v-model="holdFor" />
     </label>
     <label>
+      Hold Empty For(ms):
+      <input type="number" v-model="holdEmptyFor" />
+    </label>
+    <label>
       Loop:
       <input type="checkbox" v-model="loop" />
     </label>
@@ -87,6 +92,7 @@ const {
     :isAtLastLetter="isAtLastLetter"
     :isLastIteration="isLastIteration"
     :isPausingAtEnd="isPausingAtEnd"
+    :holdEmptyFor="holdEmptyFor"
   />
 </div>
 </template>

@@ -1,8 +1,24 @@
 <script setup lang="ts">
-import { UnwrapRef } from "vue";
-import { useTypewriter, TypewriterState } from "../../../src/UseTypewriter";
+import { TypewriterState } from "../../../src/UseTypewriter";
 
-type Props = UnwrapRef<ReturnType<typeof useTypewriter>>
+type Props = {
+  currentAction: TypewriterState;
+  currentString: string;
+  strings: string[];
+  typedLength: number;
+  stringIndex: number;
+  iteration: number;
+  typeInterval: number;
+  deleteInterval: number;
+  holdFor: number;
+  holdEmptyFor: number;
+  loop: boolean;
+  iterations: number;
+  isPaused: boolean;
+  isAtLastLetter: boolean;
+  isLastIteration: boolean;
+  isPausingAtEnd: boolean;
+}
 
 const props = defineProps<Props>();
 </script>
@@ -78,8 +94,12 @@ const props = defineProps<Props>();
               <td>{{ deleteInterval }}</td>
             </tr>
             <tr>
-              <td>Pause for</td>
+              <td>Hold for</td>
               <td>{{ holdFor }}</td>
+            </tr>
+            <tr>
+              <td>Hold Empty for</td>
+              <td>{{ holdEmptyFor }}</td>
             </tr>
             <tr>
               <td>Loop</td>

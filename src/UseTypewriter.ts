@@ -3,10 +3,11 @@ import { MaybeRef } from "@vueuse/shared";
 import { ref, computed, onMounted, onUnmounted } from "vue";
 import { UseTypewriterOptions } from "../@types/index";
 
-const useTypewriterOptionsDefaults = {
+const useTypewriterOptionsDefaults: UseTypewriterOptions = {
   typeInterval: 100,
   deleteInterval: 50,
   holdFor: 1000,
+  holdEmptyFor: 200,
   loop: true,
   iterations: 0,
   startEmpty: false,
@@ -41,7 +42,7 @@ export function useTypewriter(
   }
 
   // Set up reactive variables for options
-  const { typeInterval, deleteInterval, holdFor, loop, iterations, finishEmpty } = toRefs({
+  const { typeInterval, deleteInterval, holdFor, holdEmptyFor, loop, iterations, finishEmpty } = toRefs({
     ...useTypewriterOptionsDefaults,
     ...options,
   });
@@ -153,7 +154,7 @@ export function useTypewriter(
     // Check to see if we are at the beginning of the word.
     if (typedLength.value === 0) {
       // After the pause, we need to type the next word.
-      timer = setTimeout(nextWord, holdFor.value);
+      timer = setTimeout(nextWord, holdEmptyFor.value);
     } else {
       // If we are not at the beginning of the word, we need to delete the last character.
       typedLength.value--;
@@ -283,6 +284,7 @@ export function useTypewriter(
     typeInterval,
     deleteInterval,
     holdFor,
+    holdEmptyFor,
     loop,
     iterations,
     isPaused,
