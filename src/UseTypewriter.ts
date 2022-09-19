@@ -1,6 +1,4 @@
-// TODO: Build a handler for updating words without having to reset
-// TODO: Handle the case where words array is updated and compatable, but would change the current word
-// TODO: Handle case where finishOnEmpty is true, iterations is > 1, and the user calls play
+// TODO: (maybe) Handle the case where words array is updated and compatable, but would change the current word
 
 import { reactive } from "vue";
 import { toRefs } from "@vueuse/core";
@@ -39,6 +37,7 @@ export function useTypewriter(
 ) {
   // Emsure that strings is reactive
   const strings = ref(stringsArray);
+  let replacementStrings: string[] | null;
 
   // Validate strings array
   if (!Array.isArray(strings.value)) {
@@ -210,6 +209,12 @@ export function useTypewriter(
    * Setup up the next word in
    */
   function nextWord() {
+    // Check if there are strings to replace the current strings
+    if (replacementStrings) {
+      _updateStringsFromReplacements();
+      return;
+    }
+    
     // Set the state to typing
     currentAction.value = TypewriterState.Typing;
 
@@ -322,6 +327,40 @@ export function useTypewriter(
     }
   }
 
+  /**
+   * Update the strings array safely by finishing the deletion of the current string. 
+   * Then updating the array.
+   * @param newStrings Strings to update the current array to
+   */
+  function safeUpdateStrings(newStrings: string[]) {
+    // validate the array
+    if (!newStrings || newStrings.length === 0) {
+      throw new Error("The strings array is empty.");
+    }
+
+    // See if we can quick change the strings without queuing
+    if (typedLength.value === 0) {
+      strings.value = newStrings;
+      return
+    }
+
+    // If we are in the middle of typing, we need to wait until the current string is finished.
+    // Then we can update the strings array.
+    replacementStrings = newStrings;
+  }
+
+  /**
+   * Utility function to replace the current strings array.
+   */
+  function _updateStringsFromReplacements() {
+    if (replacementStrings) {
+      strings.value = replacementStrings;
+      replacementStrings = null;
+
+      reset();
+    }
+  }
+
   onMounted(() => {
     // If start empty is false
     if (!options.startEmpty) {
@@ -346,6 +385,7 @@ export function useTypewriter(
   // expose managed state as return value
   return {
     text,
+    strings,
     currentString,
     currentAction,
     stringIndex,
@@ -366,5 +406,6 @@ export function useTypewriter(
     pause,
     pauseAtEndOfWord,
     play,
+    safeUpdateStrings,
   };
 }
