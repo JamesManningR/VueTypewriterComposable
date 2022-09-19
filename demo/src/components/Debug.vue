@@ -1,29 +1,15 @@
 <script setup lang="ts">
-import { TypewriterState } from "../../../src/UseTypewriter";
+import { UnwrapRef } from "vue";
+import { useTypewriter, TypewriterState } from "../../../src/UseTypewriter";
 
-type Props = {
-  currentAction: TypewriterState;
-  currentString: string;
-  strings: string[];
-  typedLength: number;
-  stringIndex: number;
-  iteration: number;
-  typeInterval: number;
-  deleteInterval: number;
-  holdFor: number;
-  loop: boolean;
-  iterations: number;
-  isPaused: boolean;
-  isAtLastLetter: boolean;
-  isLastIteration: boolean;
-  isPausingAtEnd: boolean;
-}
+type Props = UnwrapRef<ReturnType<typeof useTypewriter>>
 
 const props = defineProps<Props>();
 </script>
 
 <template>
   <div class="debug">
+
     <section class="vars">
       <h2>Reactive Vars</h2>
 
