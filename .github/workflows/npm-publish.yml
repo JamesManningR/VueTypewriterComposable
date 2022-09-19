@@ -6,31 +6,26 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'yarn'
-      
-      - run: yarn install --frozen-lockfile
-
-      - run: yarn build
-
-  publish-npm:
+  build-and-publish:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Get the latest code 🚚
+        uses: actions/checkout@v3
+      
+      - name: Setup node Env 🧩
+        uses: actions/setup-node@v3
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-      - run: yarn
-      - run: yarn build
-      - run: npm publish
+      
+      - name: Install Packages 🚢
+        run: yarn
+
+      - name: Build the package 📦
+        run: yarn build
+
+      - name: Publish to Npm 🚀
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
