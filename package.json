@@ -35,7 +35,6 @@
     "vue": "^3.2.38"
   },
   "dependencies": {
-    "@vueuse/core": "^9.2.0",
     "@vueuse/shared": "^9.2.0"
   }
 }
