@@ -72,7 +72,7 @@ export function useTypewriter(
   /**
    * The current iteration of the typewriter.
    */
-  const iteration = ref(0);
+  const iteration = ref(1);
 
   /**
    * Whether the typewriter will be pausing at the end of the current string.
