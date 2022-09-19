@@ -14,6 +14,10 @@ const strings = ref([
   "你好世界 !",
 ])
 
+const breakTheApp = () => {
+  strings.value = ["Eat it"]
+}
+
 const {
   text,
   currentAction,
@@ -49,6 +53,7 @@ const {
     <button type="button" @click="play" :disabled="!isPaused">Play</button>
     <button type="button" @click="pause" :disabled="isPaused">Pause</button>
     <button type="button" @click="pauseAtEndOfWord" :disabled="isPausingAtEnd">Pause at end</button>
+    <button type="button" @click="breakTheApp">Break me</button>
     <label>
       Type Interval(ms):
       <input type="number" v-model="typeInterval" />

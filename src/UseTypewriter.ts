@@ -47,6 +47,9 @@ export function useTypewriter(
     ...options,
   });
 
+  // Set up the unreactive startPaused variable
+  const startPaused = options.startPaused ?? useTypewriterOptionsDefaults.startPaused
+
   // Setup initial state
   /**
    * The current action of the typewriter. (Typing, Deleting, Waiting)
@@ -56,9 +59,7 @@ export function useTypewriter(
   /**
    * Whether the typewriter is paused or not
    */
-  const isPaused = ref(
-    options.startPaused || useTypewriterOptionsDefaults.startPaused
-  );
+  const isPaused = ref(startPaused);
 
   /**
    * The current index of the string being typed out.
@@ -88,7 +89,7 @@ export function useTypewriter(
   /**
    * Whether the typewriter is currently using the last character of the current string
     */
-  const isAtLastLetter = computed(() => typedLength.value === currentString.value.length);
+  const isAtLastLetter = computed(() => typedLength.value >= currentString.value.length);
   
   /**
    * If the typewriter is currently using the first character of the current string
@@ -108,6 +109,15 @@ export function useTypewriter(
    */
   const text = computed(() => {
     const string = currentString.value;
+
+    if (!string) {
+      console.warn("Wasn't able to find a string to type out. Resetting to first string.");
+
+      reset();
+      return
+    } else if (string.length < typedLength.value) {
+      console.warn("The current string is shorter than the typed length. Resetting to first string.");
+    }
 
     return string.slice(0, typedLength.value);
   });
@@ -249,6 +259,20 @@ export function useTypewriter(
 
     if (finishEmpty.value) {
       stringIndex.value = 0;
+    }
+  }
+
+  function reset() {
+    // Reset the state of the typewriter
+    // While keeping the refed values
+    stringIndex.value = 0;
+    typedLength.value = 0;
+    iteration.value = 1;
+
+    if (startPaused) {
+      isPaused.value = true;
+    } else {
+      play();
     }
   }
 
