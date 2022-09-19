@@ -1,27 +1,50 @@
 import typescript from "@rollup/plugin-typescript";
+import dts from "rollup-plugin-dts";
+import { terser } from "rollup-plugin-terser";
 import pkg from "./package.json";
 
 const banner = `/**
-* Vue Typewriter Compostable ${pkg.version}
+* Typewriter Compostable ${pkg.version}
 * (c) 2022-${new Date().getFullYear()} ${pkg.author.name}
 * @license ${pkg.license}
 */`;
 
-export default {
-  input: "src/index.ts",
-  output: [
-    {
-      file: pkg.main,
-      format: 'cjs',
-      exports: 'named',
-      banner
+export default [
+  {
+    input: "src/index.ts",
+    plugins: [typescript(), terser()],
+    output: [
+      {
+        file: pkg.main,
+        format: "cjs",
+        sourcemap: true,
+        exports: 'auto',
+        banner
+      },
+      {
+        file: pkg.module,
+        format: 'es',
+        sourcemap: true,
+        exports: 'auto',
+        banner
+      },
+      {
+        file: pkg.browser,
+        name: 'TypewriterCompostable',
+        format: 'umd',
+        sourcemap: true,
+        exports: 'auto',
+        banner
+      },
+    ],
+  }, 
+  {
+
+    input: "@types/index.d.ts",
+    output: {
+      file: "dist/index.d.ts",
+      format: "es",
     },
-    {
-      file: pkg.module,
-      format: 'es',
-      exports: 'named',
-      banner
-    }
-  ],
-  plugins: [typescript()],
-}
+    plugins: [dts()],
+  },
+]

@@ -1,22 +1,16 @@
 {
   "include": [
-    "vite.config.ts",
     "env.d.ts",
     "src/**/*.ts",
-    "demo/**/*.ts",
-    "demo/**/*.d.ts",
-    "demo/**/*.tsx",
-    "demo/**/*.vue",
   ],
   "exclude": ["dist", "node_modules"],
   "compilerOptions": {
     "lib": ["esnext", "dom"],
-    "types": ["node", "vite/client"],
+    "types": ["node", "vite/client", "vue"],
     "baseUrl": ".",
     "rootDir": ".",
     "outDir": "dist",
-    "sourceMap": false,
-    "noEmit": true,
+    "sourceMap": true,
 
     "target": "esnext",
     "module": "esnext",

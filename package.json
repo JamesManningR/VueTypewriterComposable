@@ -13,7 +13,7 @@
   "homepage": "https://github.com/JamesManningR/VueTypewriterCompostable#readme",
   "repository": "https://github.com/JamesManningR/VueTypewriterCompostable",
   "license": "MIT",
-  "author": "James Manning",
+  "author": "James Ryan Manning <jamesmanningr98@gmail.com>",
   "type": "module",
   "exports": {
     ".": {
@@ -22,30 +22,37 @@
     }
   },
   "main": "./dist/index.cjs.js",
-  "module": "./dist/index.esm.js",
+  "module": "./dist/index.es.js",
+  "browser": "./dist/index.umd.js",
   "types": "./dist/index.d.ts",
+  "typescript": {
+    "definition": "dist/index.d.ts"
+  },
   "files": [
     "dist/**/*",
     "LICENSE",
     "README.md"
   ],
   "scripts": {
-    "build": "unbuild",
+    "build": "rollup -c",
     "dev": "vite"
   },
   "devDependencies": {
-    "@rollup/plugin-typescript": "^8.4.0",
+    "@rollup/plugin-typescript": "^8.5.0",
     "@vitejs/plugin-vue": "^3.1.0",
     "@vueuse/shared": "^9.2.0",
     "rollup": "^2.78.1",
+    "rollup-plugin-terser": "^7.0.2",
     "sass": "^1.54.9",
     "tslib": "^2.4.0",
     "typescript": "^4.8.2",
-    "unbuild": "^0.8.11",
     "vite": "^3.1.2",
     "vue": "^3.2.38"
   },
   "peerDependencies": {
     "vue": "^3.0.0"
+  },
+  "dependencies": {
+    "rollup-plugin-dts": "^4.2.2"
   }
 }

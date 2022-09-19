@@ -1,9 +1,7 @@
-// TODO: (maybe) Handle the case where words array is updated and compatable, but would change the current word
-
 import { reactive, toRefs } from "vue";
 import { MaybeRef } from "@vueuse/shared";
 import { ref, computed, onMounted, onUnmounted } from "vue";
-import { UseTypewriterOptions } from "../@types/index";
+import { UseTypewriterOptions } from "../@types";
 
 const useTypewriterOptionsDefaults: UseTypewriterOptions = {
   typeInterval: 100,
