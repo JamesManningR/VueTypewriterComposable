@@ -37,6 +37,7 @@ export interface UseTypewriterOptions {
 
   /**
    * Whether or not to start the typewriter as an empty string.
+   * (if false, the typewriter will start with the first word in the array)
    * 
    * @default false
    */
@@ -53,9 +54,9 @@ export interface UseTypewriterOptions {
   startPaused?: boolean;
 
   /**
-   * Should we finish with the last word completed? if false then finish when it has been deleted.
+   * Should we finish at an emptry string? if false then finish with the last word typed out.
    * 
    * @default false
    */
-  finishWithLastWord?: boolean;
+   finishEmpty?: boolean;
 }

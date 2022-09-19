@@ -11,7 +11,7 @@ const useTypewriterOptionsDefaults = {
   iterations: 0,
   startEmpty: false,
   startPaused: false,
-  finishWithLastWord: false
+  finishEmpty: false
 };
 
 export enum TypewriterState {
@@ -41,7 +41,7 @@ export function useTypewriter(
   }
 
   // Set up reactive variables for options
-  const { typeInterval, deleteInterval, holdFor, loop, iterations, finishWithLastWord } = toRefs({
+  const { typeInterval, deleteInterval, holdFor, loop, iterations, finishEmpty } = toRefs({
     ...useTypewriterOptionsDefaults,
     ...options,
   });
@@ -65,9 +65,9 @@ export function useTypewriter(
   const stringIndex = ref(0);
 
   /**
-   * The current index of the character being typed out.
+   * The current length of the text to output.
    */
-  const charIndex = ref(0);
+  const typedLength = ref(0);
   
   /**
    * The current iteration of the typewriter.
@@ -87,7 +87,7 @@ export function useTypewriter(
   /**
    * Whether the typewriter is currently using the last character of the current string
     */
-  const isAtLastLetter = computed(() => charIndex.value === strings.value[stringIndex.value].length - 1);
+  const isAtLastLetter = computed(() => typedLength.value === currentString.value.length);
   
   /**
    * If the typewriter is currently using the first character of the current string
@@ -108,9 +108,7 @@ export function useTypewriter(
   const text = computed(() => {
     const string = currentString.value;
 
-    if (charIndex.value === 0) return "";
-
-    return string.slice(0, charIndex.value + 1);
+    return string.slice(0, typedLength.value);
   });
 
   /**
@@ -126,8 +124,9 @@ export function useTypewriter(
       // And we're at the last iteration or we're looping not looping
       // And we're pausing at the end of the last word word
       // then we need to stop the typewriter.
-      if (isAtLastString.value && isLastIteration.value && finishWithLastWord.value) {
-        return
+      if (isAtLastString.value && isLastIteration.value && !finishEmpty.value) {
+        end(true);
+        return;
       }
       
       if (isPausingAtEnd.value) {
@@ -140,7 +139,7 @@ export function useTypewriter(
       }
     } else {
       // If we are not at the end of the word, we need to type the next character.
-      charIndex.value++;
+      typedLength.value++;
 
       // Set a timeout to type the next character.
       timer = setTimeout(type, typeInterval.value);
@@ -152,12 +151,12 @@ export function useTypewriter(
    */
   function deleteLetter() {
     // Check to see if we are at the beginning of the word.
-    if (charIndex.value === 0) {
+    if (typedLength.value === 0) {
       // After the pause, we need to type the next word.
       timer = setTimeout(nextWord, holdFor.value);
     } else {
       // If we are not at the beginning of the word, we need to delete the last character.
-      charIndex.value--;
+      typedLength.value--;
 
       // Set a timeout to delete the next character.
       timer = setTimeout(deleteLetter, deleteInterval.value);
@@ -176,13 +175,16 @@ export function useTypewriter(
       // If we are at the end of the words array, we need to check if we are looping.
       if (loop.value) {
         // If we have reached the iteration limit, we need to stop typing.
-        if (isLastIteration.value) return;
+        if (isLastIteration.value) {
+          end();
+          return;
+        }
 
         // If we have not reached the iteration limit, we need to increment the iteration count.
         iteration.value++;
       } else {
         // If we are not looping, we need to stop typing.
-        return;
+        end();
       }
     }
 
@@ -239,10 +241,29 @@ export function useTypewriter(
     }
   }
 
+  function end(reset?: boolean) {
+    pause();
+    isPausingAtEnd.value = false;
+    iteration.value = 1;
+
+    if (finishEmpty.value) {
+      stringIndex.value = 0;
+    }
+  }
+
   onMounted(() => {
+    // If start empty is false
+    if (!options.startEmpty) {
+      // At the index to the end of the string and start by waiting
+      stringIndex.value = strings.value.length - 1;
+      currentAction.value = TypewriterState.Waiting;
+    } else {
+      // Otherwise start by typing
+      currentAction.value = TypewriterState.Typing;
+    }
     // Start the typewriter
     if (!options.startPaused) {
-      type();
+      play();
     }
   });
 
@@ -257,7 +278,7 @@ export function useTypewriter(
     currentString,
     currentAction,
     stringIndex,
-    charIndex,
+    typedLength,
     iteration,
     typeInterval,
     deleteInterval,

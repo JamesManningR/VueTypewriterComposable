@@ -14,12 +14,12 @@ const strings = ref([
   "你好世界 !",
 ])
 
-const {     
+const {
   text,
   currentAction,
   currentString,
   stringIndex,
-  charIndex,
+  typedLength,
   iteration,
   typeInterval,
   deleteInterval,
@@ -34,8 +34,7 @@ const {
   pause,
   play
 } = useTypewriter(strings, {
-  deleteInterval: 50,
-  typeInterval: 100,
+  typeInterval: 1000,
 });
 </script>
 
@@ -54,7 +53,7 @@ const {
   <Debug 
     :currentString="currentString"
     :currentAction="currentAction"
-    :charIndex="charIndex"
+    :typedLength="typedLength"
     :stringIndex="stringIndex"
     :iteration="iteration"
     :strings="strings"
