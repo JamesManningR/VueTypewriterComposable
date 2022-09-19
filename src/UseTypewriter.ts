@@ -1,3 +1,8 @@
+// TODO: Build a handler for updating words without having to reset
+// TODO: Handle the case where words array is updated and compatable, but would change the current word
+// TODO: Handle case where finishOnEmpty is true, iterations is > 1, and the user calls play
+
+import { reactive } from "vue";
 import { toRefs } from "@vueuse/core";
 import { MaybeRef } from "@vueuse/shared";
 import { ref, computed, onMounted, onUnmounted } from "vue";
@@ -12,7 +17,7 @@ const useTypewriterOptionsDefaults: UseTypewriterOptions = {
   iterations: 0,
   startEmpty: false,
   startPaused: false,
-  finishEmpty: false
+  finishEmpty: false,
 };
 
 export enum TypewriterState {
@@ -42,13 +47,24 @@ export function useTypewriter(
   }
 
   // Set up reactive variables for options
-  const { typeInterval, deleteInterval, holdFor, holdEmptyFor, loop, iterations, finishEmpty } = toRefs({
-    ...useTypewriterOptionsDefaults,
-    ...options,
-  });
+  const {
+    typeInterval,
+    deleteInterval,
+    holdFor,
+    holdEmptyFor,
+    loop,
+    iterations,
+    finishEmpty,
+  } = toRefs(
+    reactive({
+      ...useTypewriterOptionsDefaults,
+      ...options,
+    })
+  );
 
   // Set up the unreactive startPaused variable
-  const startPaused = options.startPaused ?? useTypewriterOptionsDefaults.startPaused
+  const startPaused =
+    options.startPaused ?? useTypewriterOptionsDefaults.startPaused;
 
   // Setup initial state
   /**
@@ -70,7 +86,7 @@ export function useTypewriter(
    * The current length of the text to output.
    */
   const typedLength = ref(0);
-  
+
   /**
    * The current iteration of the typewriter.
    */
@@ -83,18 +99,27 @@ export function useTypewriter(
 
   /**
    *  whether the typewriter is currently using the last string
-   */ 
-  const isAtLastString = computed(() => stringIndex.value === strings.value.length - 1);
-  
+   */
+  const isAtLastString = computed(
+    () => stringIndex.value === strings.value.length - 1
+  );
+
   /**
    * Whether the typewriter is currently using the last character of the current string
-    */
-  const isAtLastLetter = computed(() => typedLength.value >= currentString.value.length);
-  
+   */
+  const isAtLastLetter = computed(
+    () => typedLength.value >= currentString.value.length
+  );
+
   /**
    * If the typewriter is currently using the first character of the current string
    */
-  const isLastIteration = computed(() => iterations.value !== 0 && loop.value && iteration.value >= iterations.value);
+  const isLastIteration = computed(
+    () =>
+      iterations.value !== 0 &&
+      loop.value &&
+      iteration.value >= iterations.value
+  );
 
   // All functions run sequentially, so we can use a single timeout
   let timer: ReturnType<typeof setTimeout>;
@@ -111,12 +136,16 @@ export function useTypewriter(
     const string = currentString.value;
 
     if (!string) {
-      console.warn("Wasn't able to find a string to type out. Resetting to first string.");
+      console.warn(
+        "Wasn't able to find a string to type out. Resetting to first string."
+      );
 
       reset();
-      return
+      return;
     } else if (string.length < typedLength.value) {
-      console.warn("The current string is shorter than the typed length. Resetting to first string.");
+      console.warn(
+        "The current string is shorter than the typed length. Resetting to first string."
+      );
     }
 
     return string.slice(0, typedLength.value);
@@ -139,7 +168,7 @@ export function useTypewriter(
         end(true);
         return;
       }
-      
+
       if (isPausingAtEnd.value) {
         isPausingAtEnd.value = false;
         isPaused.value = true;
