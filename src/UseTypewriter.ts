@@ -1,7 +1,6 @@
 // TODO: (maybe) Handle the case where words array is updated and compatable, but would change the current word
 
-import { reactive } from "vue";
-import { toRefs } from "@vueuse/core";
+import { reactive, toRefs } from "vue";
 import { MaybeRef } from "@vueuse/shared";
 import { ref, computed, onMounted, onUnmounted } from "vue";
 import { UseTypewriterOptions } from "../@types/index";
@@ -165,7 +164,7 @@ export function useTypewriter(
       // And we're pausing at the end of the last word word
       // then we need to stop the typewriter.
       if (isAtLastString.value && isLastIteration.value && !finishEmpty.value) {
-        end(true);
+        end();
         return;
       }
 
@@ -308,12 +307,18 @@ export function useTypewriter(
     } 
   }
 
-  function reset() {
+  function reset(typeOverride?: boolean) {
     // Reset the state of the typewriter
     // While keeping the refed values
     stringIndex.value = 0;
     typedLength.value = 0;
     iteration.value = 1;
+
+    // If we want to type, we need to start the typewriter.
+    if (typeOverride) {
+      type();
+      return;
+    }
 
     // Start paused if the startPaused prop is true
     if (startPaused) {
@@ -353,11 +358,11 @@ export function useTypewriter(
    * Utility function to replace the current strings array.
    */
   function _updateStringsFromReplacements() {
-    if (replacementStrings) {
+    if (replacementStrings && replacementStrings.length > 0) {
       strings.value = replacementStrings;
       replacementStrings = null;
 
-      reset();
+      reset(true);
     }
   }
 
@@ -409,3 +414,5 @@ export function useTypewriter(
     safeUpdateStrings,
   };
 }
+
+export type UseTypewriterReturn = ReturnType<typeof useTypewriter>
