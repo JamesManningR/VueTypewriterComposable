@@ -24,6 +24,7 @@ export enum TypewriterState {
   Typing,
   Deleting,
   Waiting,
+  Complete
 }
 
 /**
@@ -190,6 +191,8 @@ export function useTypewriter(
    * Deletes the next letter, or sets up the waiting state if at the start of the word.
    */
   function deleteLetter() {
+    // Set the current action to deleting
+    currentAction.value = TypewriterState.Deleting;
     // Check to see if we are at the beginning of the word.
     if (typedLength.value === 0) {
       // After the pause, we need to type the next word.
@@ -264,6 +267,7 @@ export function useTypewriter(
 
   /**
    * Resume the current opperation.
+   * or in the case of complete restart the typewriter.
    */
   function play() {
     isPaused.value = false;
@@ -278,17 +282,25 @@ export function useTypewriter(
       case TypewriterState.Waiting:
         resetWord();
         break;
+      case TypewriterState.Complete:
+        // If we want to play and the typewriter is complete, we need to reset the typewriter.
+        reset();
+        break;
     }
   }
 
-  function end(reset?: boolean) {
+  /**
+   * Loads the end state of the typewriter.
+   */
+  function end() {
+    currentAction.value = TypewriterState.Complete;
     pause();
     isPausingAtEnd.value = false;
-    iteration.value = 1;
+    iteration.value = 1
 
     if (finishEmpty.value) {
       stringIndex.value = 0;
-    }
+    } 
   }
 
   function reset() {
@@ -298,10 +310,15 @@ export function useTypewriter(
     typedLength.value = 0;
     iteration.value = 1;
 
+    // Start paused if the startPaused prop is true
     if (startPaused) {
       isPaused.value = true;
     } else {
-      play();
+      if (finishEmpty.value) {
+        type();
+      } else {
+        deleteLetter();
+      }
     }
   }
 
@@ -345,6 +362,7 @@ export function useTypewriter(
     isAtLastString,
     isLastIteration,
     isPausingAtEnd,
+    finishEmpty,
     pause,
     pauseAtEndOfWord,
     play,
