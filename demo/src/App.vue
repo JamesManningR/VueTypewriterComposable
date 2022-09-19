@@ -48,6 +48,26 @@ const {
     <button type="button" @click="play" :disabled="!isPaused">Play</button>
     <button type="button" @click="pause" :disabled="isPaused">Pause</button>
     <button type="button" @click="pauseAtEndOfWord" :disabled="isPausingAtEnd">Pause at end</button>
+    <label>
+      Type Interval(ms):
+      <input type="number" v-model="typeInterval" />
+    </label>
+    <label>
+      Delete Interval(ms):
+      <input type="number" v-model="deleteInterval" />
+    </label>
+    <label>
+      Hold For(ms):
+      <input type="number" v-model="holdFor" />
+    </label>
+    <label>
+      Loop:
+      <input type="checkbox" v-model="loop" />
+    </label>
+    <label v-if="!loop">
+      Iterations:
+      <input type="number" v-model="iterations" />
+    </label>
   </form>
 
   <Debug 
