@@ -67,26 +67,3 @@ export interface UseTypewriterOptions {
    */
   finishEmpty: boolean;
 }
-
-export interface useTypewriter {
-  text,
-  currentString,
-  currentAction,
-  stringIndex,
-  typedLength,
-  iteration,
-  typeInterval,
-  deleteInterval,
-  holdFor,
-  holdEmptyFor,
-  loop,
-  iterations,
-  isPaused,
-  isAtLastLetter,
-  isAtLastString,
-  isLastIteration,
-  isPausingAtEnd,
-  pause,
-  pauseAtEndOfWord,
-  play,
-}
