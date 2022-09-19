@@ -1,40 +1,51 @@
 {
-  "name": "vue-typewriter-composable",
-  "version": "0.0.1",
+  "name": "@altgen/typewriter-composable",
+  "version": "1.0.0",
+  "private": false,
   "description": "A vue 3 composable for creating typewriter text",
-  "author": "James Manning",
-  "license": "MIT",
-  "module": "./dist/index.esm.js",
-  "main": "./dist/index.cjs.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist/*.js",
-    "dist/index.d.ts"
+  "keywords": [
+    "vue",
+    "vue3",
+    "vue 3",
+    "composable",
+    "typewriter"
   ],
+  "homepage": "https://github.com/JamesManningR/VueTypewriterCompostable#readme",
+  "repository": "https://github.com/JamesManningR/VueTypewriterCompostable",
+  "license": "MIT",
+  "author": "James Manning",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/index.esm.js",
       "require": "./dist/index.cjs.js"
     }
   },
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "LICENSE",
+    "README.md"
+  ],
   "scripts": {
+    "build": "unbuild",
     "dev": "vite"
   },
-  "private": false,
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.4.0",
     "@vitejs/plugin-vue": "^3.1.0",
+    "@vueuse/shared": "^9.2.0",
     "rollup": "^2.78.1",
     "sass": "^1.54.9",
     "tslib": "^2.4.0",
     "typescript": "^4.8.2",
+    "unbuild": "^0.8.11",
     "vite": "^3.1.2",
     "vue": "^3.2.38"
   },
   "peerDependencies": {
-    "vue": "^3.2.38"
-  },
-  "dependencies": {
-    "@vueuse/shared": "^9.2.0"
+    "vue": "^3.0.0"
   }
 }
