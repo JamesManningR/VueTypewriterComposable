@@ -1,7 +1,7 @@
 {
-  "name": "vue-typewriter-compostable",
+  "name": "vue-typewriter-composable",
   "version": "0.0.1",
-  "description": "A vue 3 compostable for creating typewriter text",
+  "description": "A vue 3 composable for creating typewriter text",
   "author": "James Manning",
   "license": "MIT",
   "module": "./dist/index.esm.js",
@@ -17,14 +17,25 @@
       "require": "./dist/index.cjs.js"
     }
   },
+  "scripts": {
+    "dev": "vite"
+  },
   "private": false,
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.4.0",
+    "@vitejs/plugin-vue": "^3.1.0",
     "rollup": "^2.78.1",
+    "sass": "^1.54.9",
     "tslib": "^2.4.0",
-    "typescript": "^4.8.2"
+    "typescript": "^4.8.2",
+    "vite": "^3.1.2",
+    "vue": "^3.2.38"
   },
   "peerDependencies": {
     "vue": "^3.2.38"
+  },
+  "dependencies": {
+    "@vueuse/core": "^9.2.0",
+    "@vueuse/shared": "^9.2.0"
   }
 }
