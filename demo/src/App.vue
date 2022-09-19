@@ -56,25 +56,25 @@ const {
     <button type="button" @click="breakTheApp">Break me</button>
     <label>
       Type Interval(ms):
-      <input type="number" v-model="typeInterval" />
+      <input type="number" min="1" v-model="typeInterval" />
     </label>
     <label>
       Delete Interval(ms):
-      <input type="number" v-model="deleteInterval" />
+      <input type="number" min="1" v-model="deleteInterval" />
     </label>
     <label>
       Hold For(ms):
-      <input type="number" v-model="holdFor" />
+      <input type="number" min="1" v-model="holdFor" />
     </label>
     <label>
       Hold Empty For(ms):
-      <input type="number" v-model="holdEmptyFor" />
+      <input type="number" min="1" v-model="holdEmptyFor" />
     </label>
     <label>
       Loop:
       <input type="checkbox" v-model="loop" />
     </label>
-    <label v-if="!loop">
+    <label v-if="loop">
       Iterations:
       <input type="number" v-model="iterations" />
     </label>
