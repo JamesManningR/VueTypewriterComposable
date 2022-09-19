@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useTypewriter } from '../../src/UseTypewriter';
-import Debug from "./components/Debug.vue"
+import Debug from "./components/Debug.vue";
 
 const strings = ref([
   "Hello world!", 
@@ -12,7 +12,7 @@ const strings = ref([
   "Bonjour le monde!",
   "こんにちは世界",
   "你好世界 !",
-])
+]);
 
 const exampleReplacementStrings = [
   "Goodbye world!",
