@@ -23,15 +23,7 @@ export default [
       },
       {
         file: pkg.module,
-        format: 'es',
-        sourcemap: true,
-        exports: 'auto',
-        banner
-      },
-      {
-        file: pkg.browser,
-        name: 'TypewriterCompostable',
-        format: 'umd',
+        format: 'esm',
         sourcemap: true,
         exports: 'auto',
         banner
