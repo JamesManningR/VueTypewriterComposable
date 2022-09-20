@@ -7,7 +7,6 @@ on:
 
 jobs:
   build-and-publish:
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Get the latest code 🚚
