@@ -113,9 +113,9 @@ export function useTypewriter(
    */
   const isLastIteration = computed(
     () =>
+      !loop.value ||
       iterations.value !== 0 &&
-      loop.value &&
-      iteration.value >= iterations.value
+      (iteration.value >= iterations.value)
   );
 
   // All functions run sequentially, so we can use a single timeout
