@@ -1,5 +1,5 @@
 {
-  "name": "@altgen/typewriter-composable",
+  "name": "@altgen/typer-composable",
   "version": "1.0.0",
   "private": false,
   "description": "A vue 3 composable for creating typewriter text",
