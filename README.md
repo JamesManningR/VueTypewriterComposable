@@ -44,7 +44,7 @@ Initialise the useTypewriter using a reactive or non reactive array of strings. 
 
 This composable comes with many options and reactive return values to make it interaction rich.
 
-To see all of the options available, please see the [types file](@types/index.ts).
+To see all of the options available, please see the [types file](@types/index.d.ts).
 
 #### Returns
 
