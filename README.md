@@ -1,4 +1,6 @@
-# Typewriter Composable
+# Typer Composable
+
+[NPM Package](https://www.npmjs.com/package/@altgen/typer-composable)
 
 A Typewriter style composable which animates the typing of the typewriter and assigns it to a reactive variable
 
@@ -9,10 +11,10 @@ Initialise the useTypewriter using a reactive or non reactive array of strings. 
 ### Simple
 
 ```vue
-<script setup lang=ts>
+<script setup lang="ts">
   import { ref } from "vue";
 
-  import { useTypewriter } from "typewriter-composable";
+  import { useTypewriter } from "@altgen/typer-composable";
 
   const strings = ref([
     "Hello world!", 
