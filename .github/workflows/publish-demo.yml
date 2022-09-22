@@ -1,0 +1,31 @@
+name: Publish thd demo to Github Pages
+
+on:
+  release:
+    types: [created]
+  workflow_dispatch:
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the latest code 🚚
+        uses: actions/checkout@v3
+      
+      - name: Setup node Env 🧩
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
+      
+      - name: Install Packages 🚢
+        run: yarn
+
+      - name: Build the package 📦
+        run: yarn build:demo
+
+      - name: Publish to Github Pages 🚀
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./demo/dist
