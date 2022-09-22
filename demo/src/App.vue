@@ -20,6 +20,12 @@ const strings = ref([
 const exampleReplacementStrings = [
   "Goodbye world!",
   "Пока Світ!",
+  "Farvel verden!",
+  "Żegnaj świecie!",
+  "adiaŭ mondo!",
+  "au revoir monde!",
+  "さよならワールド",
+  "好世界",
 ];
 
 const {
