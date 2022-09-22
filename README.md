@@ -8,6 +8,17 @@ A Typewriter style composable which animates the typing of the typewriter and as
 
 ## Usage
 
+```
+// Yarn Install
+yarn add @altgen/typer-composable 
+
+// Npm Install
+npm i @altgen/typer-composable --save
+
+// PNPM Install
+pnpm i @altgen/typer-composable --save
+````
+
 Initialise the useTypewriter using a reactive or non reactive array of strings. If the array is reactive, then this will bind and follow the state of the typewriter.
 
 ### Simple
