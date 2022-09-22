@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useTypewriter } from '../../src/UseTypewriter';
+
+import AppHeader from "./components/app/AppHeader.vue";
+import AppFooter from "./components/app/AppFooter.vue";
 import Debug from "./components/Debug.vue";
 
 const strings = ref([
@@ -46,7 +49,7 @@ const {
 
 <template>
 <div class="demo"> 
-  <h1>Typer Composable Demo</h1>
+  <AppHeader />
 
   <h2 :aria-label="currentString">
     <span aria-hidden="true">
@@ -123,6 +126,7 @@ const {
     />
   </details>
 
+  <AppFooter />
 </div>
 </template>
 
