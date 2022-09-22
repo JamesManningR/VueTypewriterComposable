@@ -45,9 +45,13 @@ const {
 </script>
 
 <template>
-<div class="demo">
-  <h2>
-    {{ text || `&nbsp` }}
+<div class="demo"> 
+  <h1>Typer Composable Demo</h1>
+
+  <h2 :aria-label="currentString">
+    <span aria-hidden="true">
+      {{ text || `&nbsp` }}
+    </span>
   </h2>
 
   <details @submit.prevent class="controls">
@@ -123,6 +127,10 @@ const {
 </template>
 
 <style lang="scss">
+h2 {
+  font-size: 4em;
+}
+
 details {
   margin-bottom: 1em;
 }
