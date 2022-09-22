@@ -2,6 +2,8 @@
 
 [NPM Package](https://www.npmjs.com/package/@altgen/typer-composable)
 
+[Demo](https://jamesmanningr.github.io/VueTypewriterComposable/)
+
 A Typewriter style composable which animates the typing of the typewriter and assigns it to a reactive variable
 
 ## Usage
