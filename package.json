@@ -31,7 +31,7 @@
   ],
   "scripts": {
     "build": "rollup -c",
-    "build:demo": "vite build",
+    "build:demo": "vite build --config demo/vite.config.ts",
     "dev": "vite"
   },
   "devDependencies": {
