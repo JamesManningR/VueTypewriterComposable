@@ -86,11 +86,11 @@ const {
       </label>
       <label>
         Hold For(ms):
-        <input type="number" required min="1" v-model="holdFor" />
+        <input type="number" required min="0" v-model="holdFor" />
       </label>
       <label>
         Hold Empty For(ms):
-        <input type="number" required min="1" v-model="holdEmptyFor" />
+        <input type="number" required min="0" v-model="holdEmptyFor" />
       </label>
     </fieldset>
 

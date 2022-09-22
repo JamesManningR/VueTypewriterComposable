@@ -172,7 +172,11 @@ export function useTypewriter(
         currentAction.value = TypewriterState.Deleting;
       } else {
         // After the pause, we need to delete the word.
-        timer = setTimeout(resetWord, holdFor.value);
+        if (holdFor.value === 0) {
+          resetWord();
+        } else {
+          timer = setTimeout(resetWord, holdFor.value);
+        }
       }
     } else {
       // If we are not at the end of the word, we need to type the next character.
@@ -192,7 +196,7 @@ export function useTypewriter(
     // Check to see if we are at the beginning of the word.
     if (typedLength.value === 0) {
       // After the pause, we need to type the next word.
-      timer = setTimeout(nextWord, holdEmptyFor.value);
+      nextWord();
     } else {
       // If we are not at the beginning of the word, we need to delete the last character.
       typedLength.value--;
@@ -236,8 +240,12 @@ export function useTypewriter(
     // If we are not at the end of the words array, we need to increment the String index.
     stringIndex.value = (stringIndex.value + 1) % strings.value.length;
 
-    // Set a timeout to type the next word.
-    timer = setTimeout(type, holdFor.value);
+    // Set a timeout to type the next word if it's not instant
+    if (holdEmptyFor.value === 0) {
+      type();
+    } else {
+      timer = setTimeout(type, holdEmptyFor.value);
+    }
   }
 
   /**
