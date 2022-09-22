@@ -1,6 +1,6 @@
 {
   "name": "@altgen/typer-composable",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": false,
   "description": "A vue 3 composable for creating typewriter text",
   "keywords": [
@@ -8,7 +8,9 @@
     "vue3",
     "vue 3",
     "composable",
-    "typewriter"
+    "typewriter",
+    "typer",
+    "typerjs"
   ],
   "homepage": "https://github.com/JamesManningR/VueTypewriterCompostable#readme",
   "repository": "https://github.com/JamesManningR/VueTypewriterCompostable",
