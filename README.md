@@ -71,3 +71,7 @@ To see all of the options available, please see the [types file](@types/index.ts
 - `pauseAtEndOfWord()` - A function used to pause once the typewriter has finished typing out the word
 - `play()` - Function to continue the typewriter from where it was paused
 - `safeUpdateStrings()` - Used to update the strings array safely once the typewriter has deleted the current string.
+
+### Known Issues
+
+1 known issue is that the reactive strings array can be changed without warning. This can sometimes cause the current word to change when the typewriter is in the middle of typing a word. I've handled any errors where the strings array is too short or the current word is too short by resetting the typewriter to the start of the word. To avoid this issue, I recommend using the `safeUpdateStrings()` function to update the strings array. I'm hoping to find a lean way of using the `safeUpdateStrings()` as the default update function in the future.
