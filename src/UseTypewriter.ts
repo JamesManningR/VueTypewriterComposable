@@ -293,8 +293,14 @@ export function useTypewriter(
         resetWord();
         break;
       case TypewriterState.Complete:
-        // If we want to play and the typewriter is complete, we need to reset the typewriter.
-        reset();
+        // If our complete state is a full word
+        if (typedLength.value !== 0) {
+          // We need to start the word deleting
+          resetWord();
+        } else {
+          // Otherwise we need to start the array again
+          reset();
+        }
         break;
     }
   }
@@ -306,7 +312,7 @@ export function useTypewriter(
     currentAction.value = TypewriterState.Complete;
     pause();
     isPausingAtEnd.value = false;
-    iteration.value = 1
+    iteration.value = 1;
 
     if (finishEmpty.value) {
       stringIndex.value = 0;
