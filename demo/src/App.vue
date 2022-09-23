@@ -10,7 +10,7 @@ const strings = ref([
   "Hello world!", 
   "Привіт Світ!",
   "Hei Verden!",
-  "Czescz świecie!",
+  "Czesć świecie!",
   "Saluton mondo",
   "Bonjour le monde!",
   "こんにちは世界",
