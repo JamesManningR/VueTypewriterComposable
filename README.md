@@ -33,7 +33,7 @@ Initialise the useTypewriter using a reactive or non reactive array of strings. 
     "Hello world!", 
     "Привіт Світ!",
     "Hei Verden!",
-    "Czescz świecie!",
+    "Czesć świecie!",
     "Saluton mondo",
     "Bonjour le monde!",
     "こんにちは世界",
