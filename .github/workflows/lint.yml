@@ -1,4 +1,4 @@
-name: Publish to NPM
+name: ESLint
 
 on:
   pull_request:
