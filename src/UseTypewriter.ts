@@ -349,7 +349,7 @@ export function useTypewriter (
    * Then updating the array.
    * @param newStrings Strings to update the current array to
    */
-  function updateStrings(newStrings: string[]) {
+  function updateStrings (newStrings: string[]) {
     // validate the array
     if (!newStrings || newStrings.length === 0) {
       throw new Error('The strings array is empty.')
