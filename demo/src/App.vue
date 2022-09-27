@@ -4,7 +4,7 @@ import { useTypewriter } from '../../src/useTypewriter'
 
 import AppHeader from './components/app/AppHeader.vue'
 import AppFooter from './components/app/AppFooter.vue'
-import AppDebug from './components/AppDebug.vue'
+import AppDebug from './components/app/AppDebug.vue'
 
 const strings = ref([
   'Hello world!',

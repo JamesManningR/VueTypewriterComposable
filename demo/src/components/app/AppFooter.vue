@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { name, homepage } from "../../../../package.json";
+import { name, homepage } from '../../../../package.json'
 </script>
 
 <template>
