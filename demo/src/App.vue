@@ -30,6 +30,7 @@ const exampleReplacementStrings = [
 
 const {
   text,
+  remainingText,
   currentAction,
   currentString,
   stringIndex,
@@ -137,6 +138,7 @@ const {
       <summary>Debug</summary>
       <AppDebug
         :text="text"
+        :remaining-text="remainingText"
         :current-string="currentString"
         :current-action="currentAction"
         :typed-length="typedLength"
