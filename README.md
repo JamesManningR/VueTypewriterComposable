@@ -12,14 +12,14 @@ A Typewriter style composable which animates the typing of the typewriter and as
 
 ```bash
 // Yarn Install
-yarn add @altgen/typer-composable 
+yarn add @altgen/typer-composable
 
 // Npm Install
 npm i @altgen/typer-composable --save
 
 // PNPM Install
 pnpm i @altgen/typer-composable --save
-````
+```
 
 Initialise the useTypewriter using a reactive or non reactive array of strings. If the array is reactive, then this will bind and follow the state of the typewriter.
 
@@ -29,19 +29,19 @@ If you just want to start a typewriter and have it type out a string, then you c
 
 ```vue
 <script setup lang="ts">
-  import { ref } from "vue";
+  import { ref } from 'vue';
 
-  import { useTypewriter } from "@altgen/typer-composable";
+  import { useTypewriter } from '@altgen/typer-composable';
 
   const strings = ref([
-    "Hello world!", 
-    "Привіт Світ!",
-    "Hei Verden!",
-    "Czesć świecie!",
-    "Saluton mondo",
-    "Bonjour le monde!",
-    "こんにちは世界",
-    "你好世界 !",
+    'Hello world!',
+    'Привіт Світ!',
+    'Hei Verden!',
+    'Czesć świecie!',
+    'Saluton mondo',
+    'Bonjour le monde!',
+    'こんにちは世界',
+    '你好世界 !',
   ]);
 
   const {
@@ -69,42 +69,42 @@ To see all of the options available, please see the [types file](@types/index.d.
 interface UseTypewriterOptions {
   /**
    * The amount of time|ms) between each character being typed out.
-   * 
+   *
    * @default 100
    */
   typeInterval: number;
 
   /**
    * The amount of time|ms) between each character being deleted.
-   *  
+   *
    * @default 50
    */
   deleteInterval: number;
 
   /**
    * The amount of time(ms) to hold on once the word has been typed out.
-   * 
+   *
    * @default 1000
    */
   holdFor: number;
 
   /**
    * The amount of time(ms) to hold on once the word has been deleted.
-   * 
+   *
    * @default 200
    */
   holdEmptyFor: number;
 
   /**
    * Whether or not to loop the typewriter after the last word has been typed out.
-   * 
+   *
    * @default true
    */
   loop: boolean;
 
   /**
    * How many times to loop the typewriter. (0 = loop forever)
-   * 
+   *
    * @default 0
    */
   iterations: number;
@@ -112,7 +112,7 @@ interface UseTypewriterOptions {
   /**
    * Whether or not to start the typewriter as an empty string.
    * (if false, the typewriter will start with the first word in the array)
-   * 
+   *
    * @default false
    */
   startEmpty: boolean;
@@ -120,16 +120,16 @@ interface UseTypewriterOptions {
   /**
    * Whether to start the typewriter paused and wait for it to be triggered.
    * If true, the typewriter will not start until the `start` function is called
-   * If fasle, the typewriter will start immediately. 
-   * 
+   * If fasle, the typewriter will start immediately.
+   *
    * @default false
-   * 
+   *
    */
   startPaused: boolean;
 
   /**
    * Should we finish at an emptry string? if false then finish with the last word typed out.
-   * 
+   *
    * @default false
    */
   finishEmpty: boolean;
@@ -150,7 +150,7 @@ interface UseTypewriterReturns {
   text: Computed<string>;
   /**
    * The array of strings to be typed out.
-   * @note This is reactive and can be changed at anytime, however, 
+   * @note This is reactive and can be changed at anytime, however,
    * I would recommend using the `safeUpdateStrings()` method to update the strings,
    * to avoid any unexpected changes in the text
    */
@@ -209,7 +209,7 @@ interface UseTypewriterReturns {
    */
   isAtLastLetter: Computed<boolean>;
   /**
-   * 
+   *
    * Whether or not the typewriter is currently at the last letter of the string
    */
   isAtLastString: Computed<boolean>;

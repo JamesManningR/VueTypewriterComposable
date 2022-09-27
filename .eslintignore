@@ -1,0 +1,8 @@
+dist/
+node_modules
+node_modules/
+@types/
+!/.eslintrc.js
+!/rollup.config.js
+vite.config.ts
+env.d.ts
