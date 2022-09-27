@@ -125,6 +125,11 @@ const {
           Iterations:
           <input v-model="iterations" type="number">
         </label>
+
+        <label>
+          Will shuffle:
+          <input v-model="willShuffle" type="checkbox">
+        </label>
       </fieldset>
     </details>
 
