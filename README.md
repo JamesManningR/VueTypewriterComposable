@@ -8,7 +8,9 @@ A Typewriter style composable which animates the typing of the typewriter and as
 
 ## Usage
 
-```
+### Instalation
+
+```bash
 // Yarn Install
 yarn add @altgen/typer-composable 
 
@@ -22,6 +24,8 @@ pnpm i @altgen/typer-composable --save
 Initialise the useTypewriter using a reactive or non reactive array of strings. If the array is reactive, then this will bind and follow the state of the typewriter.
 
 ### Simple
+
+If you just want to start a typewriter and have it type out a string, then you can just pass it a list of strings. This can be reactive or non reactive. ( the reactive version is shown below )
 
 ```vue
 <script setup lang="ts">
@@ -46,6 +50,8 @@ Initialise the useTypewriter using a reactive or non reactive array of strings. 
   } = useTypewriter(strings);
 </script>
 
+This can be used to bind to any attibute, or alternatively as html content
+I would recommend generally not using the results of this string for accessibility attributes, but if it's a must, here is an example.
 <template>
 <div :aria-label="currentString">
   <span aria-hidden="true">{{ text }}<span>
@@ -59,31 +65,186 @@ This composable comes with many options and reactive return values to make it in
 
 To see all of the options available, please see the [types file](@types/index.d.ts).
 
+```ts
+interface UseTypewriterOptions {
+  /**
+   * The amount of time|ms) between each character being typed out.
+   * 
+   * @default 100
+   */
+  typeInterval: number;
+
+  /**
+   * The amount of time|ms) between each character being deleted.
+   *  
+   * @default 50
+   */
+  deleteInterval: number;
+
+  /**
+   * The amount of time(ms) to hold on once the word has been typed out.
+   * 
+   * @default 1000
+   */
+  holdFor: number;
+
+  /**
+   * The amount of time(ms) to hold on once the word has been deleted.
+   * 
+   * @default 200
+   */
+  holdEmptyFor: number;
+
+  /**
+   * Whether or not to loop the typewriter after the last word has been typed out.
+   * 
+   * @default true
+   */
+  loop: boolean;
+
+  /**
+   * How many times to loop the typewriter. (0 = loop forever)
+   * 
+   * @default 0
+   */
+  iterations: number;
+
+  /**
+   * Whether or not to start the typewriter as an empty string.
+   * (if false, the typewriter will start with the first word in the array)
+   * 
+   * @default false
+   */
+  startEmpty: boolean;
+
+  /**
+   * Whether to start the typewriter paused and wait for it to be triggered.
+   * If true, the typewriter will not start until the `start` function is called
+   * If fasle, the typewriter will start immediately. 
+   * 
+   * @default false
+   * 
+   */
+  startPaused: boolean;
+
+  /**
+   * Should we finish at an emptry string? if false then finish with the last word typed out.
+   * 
+   * @default false
+   */
+  finishEmpty: boolean;
+}
+```
+
 #### Returns
 
-- `text` - The current text being typed
-- `strings` - The strings to be typed
-- `currentString` - The current string being typed
-- `currentAction` - The current action taking place (typing, deleting, waiting, complete) If you want to interact with this one, use the `TypewriterState` enum
-- `stringIndex` - The index of the current string being typed
-- `typedLength` - The length of the word that has been typed (this was used rather than index since the slice method requires a length rather than an index, and 0 just ouputs the whole string)
-- `iteration` - Each time that the typewriter runs trough all of the strings, this will increment by 1 starting at 1
-- `typeInterval` - The interval (in ms) between each character being typed
-- `deleteInterval` - The interval (in ms) between each character being deleted
-- `holdFor` - The amount of time (in ms) that the typewriter will wait before deleting the string
-- `holdEmptyFor` - The amount of time (in ms) that the typewriter will wait before typing the next string.
-- `loop` - Whether to loop the typewriter or not if false it will stop at the last word.
-- `iterations` - Reactive version of the prop of the same name, if this is set to 0, then the typewriter will loop forever.
-- `isPaused` - Whether the typewriter is paused or not
-- `isAtLastLetter` - If the typewriter is at the last letter of the current string
-- `isAtLastString` - If the typewriter is at the last string in the array
-- `isLastIteration` - If this is the last iteration.
-- `isPausingAtEnd` - If the typewriter is pausing at the end of the string.
-- `finishEmpty` - If the typewriters is set to finish the iteration as an empty string
-- `pause()` - A function used to pause the typewriter in its place
-- `pauseAtEndOfWord()` - A function used to pause once the typewriter has finished typing out the word
-- `play()` - Function to continue the typewriter from where it was paused
-- `safeUpdateStrings()` - Used to update the strings array safely once the typewriter has deleted the current string.
+The useTypewriter composable exposes many reactive values to allow for interaction with the typewriter. As well as some functions to control the typewriter.
+
+All of these values are reactive, and can be used in templates, or in other reactive functions. As well as to adjut the functionality of the typewriter on the fly, without re-initialising.
+
+```ts
+interface UseTypewriterReturns {
+  /**
+   * The current string being typed out.
+   */
+  text: Computed<string>;
+  /**
+   * The array of strings to be typed out.
+   * @note This is reactive and can be changed at anytime, however, 
+   * I would recommend using the `safeUpdateStrings()` method to update the strings,
+   * to avoid any unexpected changes in the text
+   */
+  strings: Ref<string[]>;
+  /**
+   * The full current string being typed out without any clipping
+   */
+  currentString: Ref<string>;
+  /**
+   * The current state of the typewriter (typing, deleting, waiting, complete)
+   * Use the Typewriter action enum to interact with this
+   */
+  currentAction: Ref<TypewriterAction>;
+  /**
+   * The current string index that is being typed out
+   */
+  stringIndex: Ref<number>;
+  /**
+   * The length of the string as it is typed. I would have opted for 'charIndex' as a key, but this would not be accurate as setting the index to 0 would still show the first character.
+   */
+  typedLength: Ref<number>;
+  /**
+   * The current iteration of the typewriter - each time the typewriter loops, this will increment by 1
+   */
+  iteration: Ref<number>;
+  /**
+   * The time (in ms) between each letter being typed
+   */
+  typeInterval: Ref<number>;
+  /**
+   * The time (in ms) between each letter being deleted
+   */
+  deleteInterval: Ref<number>;
+  /**
+   * The time (in ms) to hold on once the word has been typed out
+   */
+  holdFor: Ref<number>;
+  /**
+   * The time (in ms) to hold on once the word has been deleted
+   */
+  holdEmptyFor: Ref<number>;
+  /**
+   * Whether or not to loop the typewriter after the last word has been typed out
+   */
+  loop: Ref<boolean>;
+  /**
+   * How many times to loop the typewriter. (0 = loop forever)
+   */
+  iterations: Ref<number>;
+  /**
+   * Whether or not the typewriter is currently paused
+   */
+  isPaused: Ref<boolean>;
+  /**
+   * Whether or not the typewriter is currently at the last letter of the string
+   */
+  isAtLastLetter: Computed<boolean>;
+  /**
+   * 
+   * Whether or not the typewriter is currently at the last letter of the string
+   */
+  isAtLastString: Computed<boolean>;
+  /**
+   * Whether or not the typewriter is currently on its last itteration
+   */
+  isLastIteration: Computed<boolean>;
+  /**
+   * Whether or not the typewriter is set to pause once the last letter has been typed out
+   */
+  isPausingAtEnd: Ref<boolean>;
+  /**
+   * Whether or not the typewriter is to end on an empty string
+   */
+  finishEmpty: Ref<boolean>;
+  /**
+   * Pause the typewriter where it is
+   */
+  pause: () => void;
+  /**
+   * Pause once the current word has been typed out
+   */
+  pauseAtEndOfWord: () => void;
+  /*
+   * Resume the typewriter from where it is
+   * If the typewriter is complete, it will restart
+   */
+  play: () => void;
+  /**
+   * Update the strings once the typewriter is has deleted the current string
+   * This will then start from string index 0
+   */
+  safeUpdateStrings: (strings: MaybeRef<string[]>) => void;
+}
+```
 
 ### Known Issues
 
