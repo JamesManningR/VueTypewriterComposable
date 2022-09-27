@@ -133,6 +133,13 @@ interface UseTypewriterOptions {
    * @default false
    */
   finishEmpty: boolean;
+
+  /**
+   * If we should shuffle once we've reached the end of this itteration.
+   *
+   * @default false
+   */
+  shuffle: boolean;
 }
 ```
 
