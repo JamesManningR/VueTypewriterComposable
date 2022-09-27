@@ -11,13 +11,13 @@ jobs:
     steps:
       - name: Get the latest code 🚚
         uses: actions/checkout@v3
-      
+
       - name: Setup node Env 🧩
         uses: actions/setup-node@v3
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-      
+
       - name: Install Packages 🚢
         run: yarn
 

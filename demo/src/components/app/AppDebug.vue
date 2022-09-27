@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { TypewriterState } from "../../../src/UseTypewriter";
+import { TypewriterStates } from '../../../../src/UseTypewriter'
 
 type Props = {
-  currentAction: TypewriterState;
+  currentAction: TypewriterStates;
   currentString: string;
   strings: string[];
   typedLength: number;
@@ -21,14 +21,15 @@ type Props = {
   finishEmpty: boolean;
 }
 
-const props = defineProps<Props>();
+defineProps<Props>()
 </script>
 
 <template>
   <div class="debug">
     <blockquote>
-      All of these are reactive, so you can use them in your own components.
-      All options can be changed to adjust the behaviour of the typewriter dynamically.
+      All of these are reactive, so you can use them in your own components. All
+      options can be changed to adjust the behaviour of the typewriter
+      dynamically.
     </blockquote>
 
     <div class="vars">
@@ -36,9 +37,18 @@ const props = defineProps<Props>();
         <h3>Strings in the list</h3>
 
         <ul>
-          <li v-for="(string, index) in strings" @key="string"
-            :class="{ active: index === stringIndex, deleting: index === stringIndex && currentAction === TypewriterState.Deleting }">
-            {{ string }}</li>
+          <li
+            v-for="(string, index) in strings"
+            :key="string"
+            :class="{
+              active: index === stringIndex,
+              deleting:
+                index === stringIndex &&
+                currentAction === TypewriterStates.Deleting,
+            }"
+          >
+            {{ string }}
+          </li>
         </ul>
       </section>
 
@@ -51,7 +61,7 @@ const props = defineProps<Props>();
           </tr>
           <tr>
             <td>Current Action</td>
-            <td>{{ currentAction }} ({{ TypewriterState[currentAction] }})</td>
+            <td>{{ currentAction }} ({{ TypewriterStates[currentAction] }})</td>
           </tr>
           <tr>
             <td>Typed length</td>
