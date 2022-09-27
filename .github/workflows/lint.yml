@@ -5,7 +5,7 @@ on:
     types: [opened, edited]
 
 jobs:
-  build-and-publish:
+  lint-code:
     runs-on: ubuntu-latest
     steps:
       - name: Get the latest code 🚚
