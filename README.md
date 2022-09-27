@@ -133,6 +133,13 @@ interface UseTypewriterOptions {
    * @default false
    */
   finishEmpty: boolean;
+
+  /**
+   * If we should shuffle once we've reached the end of this itteration.
+   *
+   * @default false
+   */
+  shuffle: boolean;
 }
 ```
 
@@ -222,6 +229,10 @@ interface UseTypewriterReturns {
    */
   isPausingAtEnd: Ref<boolean>;
   /**
+   * Whether or not the typewriter will shuffle once the last word in the itteration has been typed out
+  */
+  willShuffle: Ref<boolean>;
+  /**
    * Whether or not the typewriter is to end on an empty string
    */
   finishEmpty: Ref<boolean>;
@@ -233,6 +244,10 @@ interface UseTypewriterReturns {
    * Pause once the current word has been typed out
    */
   pauseAtEndOfWord: () => void;
+  /**
+    * Shuffle the strings array after the current word has been typed out
+   */
+  shuffle: () => void;
   /*
    * Resume the typewriter from where it is
    * If the typewriter is complete, it will restart

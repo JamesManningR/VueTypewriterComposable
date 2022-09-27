@@ -18,6 +18,7 @@ type Props = {
   isAtLastLetter: boolean;
   isLastIteration: boolean;
   isPausingAtEnd: boolean;
+  willShuffle: boolean;
   finishEmpty: boolean;
 }
 
@@ -90,6 +91,10 @@ defineProps<Props>()
           <tr>
             <td>Is pausing at end</td>
             <td>{{ isPausingAtEnd }}</td>
+          </tr>
+          <tr>
+            <td>Will shuffle</td>
+            <td>{{ willShuffle }}</td>
           </tr>
         </table>
       </section>
