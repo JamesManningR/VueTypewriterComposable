@@ -349,7 +349,7 @@ export function useTypewriter (
    * Then updating the array.
    * @param newStrings Strings to update the current array to
    */
-  function safeUpdateStrings (newStrings: string[]) {
+  function updateStrings(newStrings: string[]) {
     // validate the array
     if (!newStrings || newStrings.length === 0) {
       throw new Error('The strings array is empty.')
@@ -364,6 +364,16 @@ export function useTypewriter (
     // If we are in the middle of typing, we need to wait until the current string is finished.
     // Then we can update the strings array.
     replacementStrings = newStrings
+  }
+
+  /**
+   * Update the strings array safely by finishing the deletion of the current string.
+   * Then updating the array.
+   * @param newStrings Strings to update the current array to
+   * @deprecated since v1.0.7 use updateStrings instead
+   */
+  function safeUpdateStrings (newStrings: string[]) {
+    updateStrings(newStrings)
   }
 
   /**

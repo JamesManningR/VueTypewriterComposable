@@ -151,7 +151,7 @@ interface UseTypewriterReturns {
   /**
    * The array of strings to be typed out.
    * @note This is reactive and can be changed at anytime, however,
-   * I would recommend using the `safeUpdateStrings()` method to update the strings,
+   * I would recommend using the `updateStrings` method to update the strings,
    * to avoid any unexpected changes in the text
    */
   strings: Ref<string[]>;
@@ -242,10 +242,10 @@ interface UseTypewriterReturns {
    * Update the strings once the typewriter is has deleted the current string
    * This will then start from string index 0
    */
-  safeUpdateStrings: (strings: MaybeRef<string[]>) => void;
+  updateStrings: (strings: MaybeRef<string[]>) => void;
 }
 ```
 
 ### Known Issues
 
-1 known issue is that the reactive strings array can be changed without warning. This can sometimes cause the current word to change when the typewriter is in the middle of typing a word. I've handled any errors where the strings array is too short or the current word is too short by resetting the typewriter to the start of the word. To avoid this issue, I recommend using the `safeUpdateStrings()` function to update the strings array. I'm hoping to find a lean way of using the `safeUpdateStrings()` as the default update function in the future.
+1 known issue is that the reactive strings array can be changed without warning. This can sometimes cause the current word to change when the typewriter is in the middle of typing a word. I've handled any errors where the strings array is too short or the current word is too short by resetting the typewriter to the start of the word. To avoid this issue, I recommend using the `updateStrings` function to update the strings array. I'm hoping to find a lean way of using the `updateStrings` as the default update function in the future.
