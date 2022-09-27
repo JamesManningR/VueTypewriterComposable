@@ -34,7 +34,7 @@
   "scripts": {
     "build": "rollup -c",
     "build:demo": "vite build --config demo/vite.config.ts",
-    "lint": "eslint --ext .ts,.js,.mjs,.cjs .",
+    "lint": "eslint --ext .ts,.js,.mjs,.cjs,.vue .",
     "lint:fix": "eslint --fix --ext .ts,.js,.mjs,.cjs .",
     "format": "prettier .  --write",
     "dev": "vite"
