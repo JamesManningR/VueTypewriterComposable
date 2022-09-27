@@ -136,6 +136,7 @@ const {
     <details>
       <summary>Debug</summary>
       <AppDebug
+        :text="text"
         :current-string="currentString"
         :current-action="currentAction"
         :typed-length="typedLength"

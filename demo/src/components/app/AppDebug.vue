@@ -2,6 +2,7 @@
 import { TypewriterStates } from '../../../../src/useTypewriter'
 
 type Props = {
+  text: string
   currentAction: TypewriterStates;
   currentString: string;
   strings: string[];
@@ -48,7 +49,13 @@ defineProps<Props>()
                 currentAction === TypewriterStates.Deleting,
             }"
           >
-            {{ string }}
+            <template v-if="index === stringIndex">
+              <span class="typed">{{ text }}</span>
+              <span class="not-typed">{{ currentString.slice(typedLength) }}</span>
+            </template>
+            <span v-else>
+              {{ string }}
+            </span>
           </li>
         </ul>
       </section>
@@ -143,10 +150,14 @@ defineProps<Props>()
 }
 
 .active {
-  color: green;
+  color: #5f5;
+}
+
+.not-typed {
+  opacity: .3;
 }
 
 .deleting {
-  color: red;
+  color: #f45;
 }
 </style>
