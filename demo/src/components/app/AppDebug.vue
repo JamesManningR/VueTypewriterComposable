@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { TypewriterStates } from '../../../../src/UseTypewriter'
+import { TypewriterStates } from '../../../../src/useTypewriter'
 
 type Props = {
   currentAction: TypewriterStates;
