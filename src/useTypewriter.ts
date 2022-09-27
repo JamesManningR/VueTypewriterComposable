@@ -144,7 +144,7 @@ export function useTypewriter (
       )
 
       reset()
-      return
+      return ''
     }
     if (string.length < typedLength.value) {
       // eslint-disable-next-line no-console
@@ -155,6 +155,11 @@ export function useTypewriter (
 
     return string.slice(0, typedLength.value)
   })
+
+  /**
+   * The text that has not yet been typed
+   */
+  const remainingText = computed(() => currentString.value.slice(typedLength.value))
 
   /**
    * Types the next letter, or sets up the waiting state if at the end of the word.
@@ -432,6 +437,7 @@ export function useTypewriter (
   // expose managed state as return value
   return {
     text,
+    remainingText,
     strings,
     currentString,
     currentAction,
