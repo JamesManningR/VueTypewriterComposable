@@ -45,11 +45,13 @@ const {
   isAtLastLetter,
   isLastIteration,
   isPausingAtEnd,
+  willShuffle,
   finishEmpty,
   pauseAtEndOfWord,
   pause,
   play,
-  safeUpdateStrings,
+  updateStrings,
+  shuffle,
 } = useTypewriter(strings)
 </script>
 
@@ -82,9 +84,12 @@ const {
         </button>
         <button
           type="button"
-          @click="safeUpdateStrings(exampleReplacementStrings)"
+          @click="updateStrings(exampleReplacementStrings)"
         >
           Safe Replace
+        </button>
+        <button type="button" @click="shuffle()">
+          Shuffle
         </button>
       </fieldset>
 
@@ -142,6 +147,7 @@ const {
         :is-at-last-letter="isAtLastLetter"
         :is-last-iteration="isLastIteration"
         :is-pausing-at-end="isPausingAtEnd"
+        :will-shuffle="willShuffle"
         :hold-empty-for="holdEmptyFor"
         :finish-empty="finishEmpty"
       />
