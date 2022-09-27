@@ -1,9 +1,8 @@
-name: Publish to NPM
+name: ESLint
 
 on:
-  release:
-    types: [created]
-  workflow_dispatch:
+  pull_request:
+    types: [opened, edited]
 
 jobs:
   build-and-publish:
@@ -21,10 +20,5 @@ jobs:
       - name: Install Packages 🚢
         run: yarn
 
-      - name: Build the package 📦
-        run: yarn build
-
-      - name: Publish to Npm 🚀
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+      - name: Run the linter
+        run: yarn lint

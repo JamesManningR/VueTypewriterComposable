@@ -34,12 +34,21 @@
   "scripts": {
     "build": "rollup -c",
     "build:demo": "vite build --config demo/vite.config.ts",
+    "lint": "eslint --ext .ts,.js,.mjs,.cjs,.vue .",
+    "lint:fix": "eslint --fix --ext .ts,.js,.mjs,.cjs .",
+    "format": "prettier .  --write",
     "dev": "vite"
   },
   "devDependencies": {
+    "@nuxtjs/eslint-config": "^11.0.0",
+    "@nuxtjs/eslint-config-typescript": "^11.0.0",
     "@rollup/plugin-typescript": "^8.5.0",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
     "@vitejs/plugin-vue": "^3.1.0",
     "@vueuse/shared": "^9.2.0",
+    "eslint": "^8.24.0",
+    "prettier": "^2.7.1",
     "rollup": "^2.78.1",
     "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-terser": "^7.0.2",
@@ -47,6 +56,7 @@
     "tslib": "^2.4.0",
     "typescript": "^4.8.2",
     "vite": "^3.1.2",
+    "vite-plugin-eslint": "^1.8.1",
     "vue": "^3.2.38"
   },
   "peerDependencies": {
