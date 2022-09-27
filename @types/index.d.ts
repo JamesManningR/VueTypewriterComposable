@@ -66,4 +66,10 @@ export interface UseTypewriterOptions {
    * @default false
    */
   finishEmpty: boolean;
+
+  /**
+   * Whether or not to shuffle the words before for each iteration.
+   * (if true, the words will be shuffled before each iteration)
+   */
+  shuffle: boolean;
 }

@@ -1,6 +1,7 @@
 import { reactive, toRefs, ref, computed, onMounted, onUnmounted } from 'vue'
 import { MaybeRef } from '@vueuse/shared'
 import { UseTypewriterOptions } from '../@types'
+import { shuffleArray } from './utils'
 
 const useTypewriterOptionsDefaults: UseTypewriterOptions = {
   typeInterval: 100,
@@ -12,6 +13,7 @@ const useTypewriterOptionsDefaults: UseTypewriterOptions = {
   startEmpty: false,
   startPaused: false,
   finishEmpty: false,
+  shuffle: false,
 }
 
 export enum TypewriterStates {
@@ -92,6 +94,11 @@ export function useTypewriter (
    * Whether the typewriter will be pausing at the end of the current string.
    */
   const isPausingAtEnd = ref(false)
+
+  /**
+   * Whether the typewriter will shuffle the strings at the end of the current iteration.
+   */
+  const willShuffle = ref(options.shuffle ?? useTypewriterOptionsDefaults.shuffle)
 
   /**
    *  whether the typewriter is currently using the last string
@@ -223,6 +230,10 @@ export function useTypewriter (
       // If we are at the end of the words array, we need to check if we are looping.
       if (loop.value) {
         // If we have reached the iteration limit, we need to stop typing.
+        if (willShuffle.value) {
+          strings.value = shuffleArray(strings.value)
+        }
+
         if (isLastIteration.value) {
           end()
           return
@@ -370,10 +381,19 @@ export function useTypewriter (
    * Update the strings array safely by finishing the deletion of the current string.
    * Then updating the array.
    * @param newStrings Strings to update the current array to
-   * @deprecated since v1.0.7 use updateStrings instead
+   * @note Use updateStrings instead
+   * @deprecated since v1.0.7
    */
   function safeUpdateStrings (newStrings: string[]) {
     updateStrings(newStrings)
+  }
+
+  /**
+   * Shuffle the string order after the current word is finished.
+   */
+  function shuffle () {
+    // Set the strings to the same strings with a random order
+    updateStrings(shuffleArray(strings.value))
   }
 
   /**
@@ -429,10 +449,13 @@ export function useTypewriter (
     isAtLastString,
     isLastIteration,
     isPausingAtEnd,
+    willShuffle,
     finishEmpty,
     pause,
     pauseAtEndOfWord,
     play,
+    shuffle,
+    updateStrings,
     safeUpdateStrings,
   }
 }
