@@ -2,6 +2,8 @@
 import { TypewriterStates } from '../../../../src/useTypewriter'
 
 type Props = {
+  text: string;
+  remainingText: string;
   currentAction: TypewriterStates;
   currentString: string;
   strings: string[];
@@ -33,6 +35,8 @@ defineProps<Props>()
       dynamically.
     </blockquote>
 
+    <p>Computed properties are marked with a *</p>
+
     <div class="vars">
       <section>
         <h3>Strings in the list</h3>
@@ -48,7 +52,13 @@ defineProps<Props>()
                 currentAction === TypewriterStates.Deleting,
             }"
           >
-            {{ string }}
+            <template v-if="index === stringIndex">
+              <span class="typed">{{ text }}</span>
+              <span class="not-typed">{{ currentString.slice(typedLength) }}</span>
+            </template>
+            <span v-else>
+              {{ string }}
+            </span>
           </li>
         </ul>
       </section>
@@ -57,7 +67,15 @@ defineProps<Props>()
         <h3>State</h3>
         <table>
           <tr>
-            <td>Current string(*)</td>
+            <td>Text *</td>
+            <td>{{ text }}</td>
+          </tr>
+          <tr>
+            <td>Remaining Text *</td>
+            <td>{{ remainingText }}</td>
+          </tr>
+          <tr>
+            <td>Current string *</td>
             <td>{{ currentString }}</td>
           </tr>
           <tr>
@@ -81,11 +99,11 @@ defineProps<Props>()
             <td>{{ isPaused }}</td>
           </tr>
           <tr>
-            <td>Is at last letter</td>
+            <td>Is at last letter *</td>
             <td>{{ isAtLastLetter }}</td>
           </tr>
           <tr>
-            <td>Is last iteration</td>
+            <td>Is last iteration *</td>
             <td>{{ isLastIteration }}</td>
           </tr>
           <tr>
@@ -143,10 +161,14 @@ defineProps<Props>()
 }
 
 .active {
-  color: green;
+  color: #5f5;
+}
+
+.not-typed {
+  opacity: .3;
 }
 
 .deleting {
-  color: red;
+  color: #f45;
 }
 </style>

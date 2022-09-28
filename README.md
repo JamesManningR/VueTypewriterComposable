@@ -156,6 +156,10 @@ interface UseTypewriterReturns {
    */
   text: Computed<string>;
   /**
+   * The remaining text not yet typed out.
+   */
+  remainingText: Computed<string>;
+  /**
    * The array of strings to be typed out.
    * @note This is reactive and can be changed at anytime, however,
    * I would recommend using the `updateStrings` method to update the strings,
